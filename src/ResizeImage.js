@@ -4,36 +4,37 @@ const path = require('path');
 
 class ResizeImageApi {
 
-  options;
-  fileInfo;
+    imagePath = path.resolve(__dirname, 'images')
+	pathForSaveImage = path.resolve(__dirname, 'images', 'resImg')
 
-  constructor(options, fileInfo) {
-    this.options = options;
-    this.fileInfo = fileInfo;
-  }
+	options = {
+		size: [400, 491, 516, 665],
+		ext: ['webp', 'png'],
+		multi: [1, 2, 3]
+	};
 
 
-  async makeResize() {
+  async makeResize(fileName, extension) {
     try {
       this.options.size.forEach(el => {
         this.options.ext.forEach(ext => {
           if (ext === 'webp') {
             this.options['multi'].forEach(x => {
-              sharp(this.fileInfo['imagePath'], this.fileInfo['fileName'])
+              sharp(path.join(this.imagePath, fileName + extension))
                 .resize(el * x)
                 .webp()
-                .toFile(path.join(this.fileInfo['pathForSaveImage'], this.fileInfo['fileName']))
+                .toFile(path.join(this.pathForSaveImage, `${fileName}[${el * x}]${x !== 1 ? `@${x}x` : ''}.webp`))
             })
           }
           if (ext === 'png') {
             this.options['multi'].forEach(x => {
-              sharp(this.fileInfo['imagePath'], this.fileInfo['fileName'])
+              sharp(path.join(this.imagePath, fileName + extension))
                 .resize(el * x)
                 .png({
                   quality: 50,
                   compression: 6
                 })
-                .toFile(path.join(this.fileInfo['pathForSaveImage'], this.fileInfo['fileName']));
+                .toFile(path.join(this.pathForSaveImage, `${fileName}[${el * x}]${x !== 1 ? `@${x}x` : ''}.png`));
             })
           }
         })

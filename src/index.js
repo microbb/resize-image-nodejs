@@ -1,18 +1,10 @@
-const resizeImageApi = require('./ResizeImage');
+const res = require('./ResizeImage');
 
-const options = {
-  size: [400, 491, 516, 665],
-  ext: ['webp', 'png'],
-  multi: [1, 2, 3]
-}
+res.makeResize('Avtolider', '.png');
 
-const file = {
-  fileName: 'Avtolider.png',
-  imagePath: 'C:\\Users\\mic\\code\\my\\nodejs\\src\\images',
-  pathForSaveImage: 'C:\\Users\\mic\\code\\my\\nodejs\\src\\images\\resImages'
-}
+// const options = {
+//   size: [400, 491, 516, 665],
+//   ext: ['webp', 'png'],
+//   multi: [1, 2, 3]
+// }
 
-// const resize = new resizeImageApi(options, file);
-
-console.log(resizeImageApi);
-// resize.makeResize()
